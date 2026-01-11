@@ -3,7 +3,7 @@ import time
 from turtle import delay
 os.system('clear')
 
-def singleTyping(text, delay=0.1):
+def singleTyping(text, delay=0.2):
     for char in text:
         print(char, end="", flush=True)  # print each letter without newline (flush ensures it appears immediately)
         time.sleep(delay)   # wait a bit between letters
@@ -23,6 +23,7 @@ if choice == '1':
     time.sleep(2)
     os.system('clear')
 
+    # rabbit intro 
     singleTyping("-----------------------", delay=0.02)
     singleTyping("\nClove The Rabbit", delay=0.1)
     singleTyping("\n(\_/)", delay=0.09)
@@ -30,10 +31,14 @@ if choice == '1':
     singleTyping("\n-----------------------", delay=0.02)
     singleTyping("\nI am ready to hop!", delay=0.1)
 
-    
+elif choice == '2':
+    os.system('clear')
+    singleTyping("About Me", delay=0.1)
+    singleTyping("\nThis game was created by Brian Le.", delay=0.05)
+    singleTyping("\n", delay=0.05)
 
 
-# # hops counter 
+# # hops count
 # hops = 0
 
 # # hops functionality
