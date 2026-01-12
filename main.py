@@ -39,9 +39,11 @@ if choice == '1':
 
     # game based stats and variables
     hops = 0
+    
     multiplier = 1.0
     upgrade_level = 0
     upgrade_cost = 10
+    
     last_time = time.time()
 
     # main game loop
@@ -69,4 +71,4 @@ if choice == '1':
         print("Cost: " + str(upgrade_cost) + " hops")
         print("\n(Upgrades are automatic so just watch hops increase!)")
 
-        time.sleep(0.1)
+        time.sleep(0.1) # tiny delay so the loop isn't crazy fast.
