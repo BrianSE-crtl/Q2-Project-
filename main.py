@@ -17,6 +17,7 @@ print("3. Reset Progress (WIPES ALL DATA/PROGRESSION)")
 
 choice = input("Select an option (1, 2, or 3): ")
 
+# playing the game section
 if choice == '1':
     os.system('clear')
     singleTyping("Waking up the rabbit...", delay=0.15)
@@ -31,11 +32,29 @@ if choice == '1':
     singleTyping("\n-----------------------", delay=0.02)
     singleTyping("\nI am ready to hop!", delay=0.1)
 
+# about me section
 elif choice == '2':
     os.system('clear')
     singleTyping("About Me", delay=0.1)
-    singleTyping("\nThis game was created by Brian Le.", delay=0.05)
-    singleTyping("\n", delay=0.05)
+    singleTyping("\n---------", delay=0.05)
+    singleTyping("\nHello! My name is Brian Le, and I am the creator of this game.", delay=0.05)
+    singleTyping("\nI am a passionate intermediate developer who loves creating fun and engaging experiences.", delay=0.05)
+    singleTyping("\nThank you for playing one of my projects!", delay=0.05)
+    singleTyping("\n~1/11/26", delay=0.05)
+    
+# reset progress section
+elif choice == '3':
+    os.system('clear')
+    choice_confirm = input("Are you sure you want to reset all progress? This action cannot be undone. (yes/no): ")
+    if choice_confirm.lower() == 'yes':
+        singleTyping("Resetting all progress...", delay=0.1)
+        time.sleep(1)
+        os.system('clear')
+        hops = 0 # reset hops count to 0
+        singleTyping("All progress has been reset.", delay=0.1)
+    
+
+
 
 
 # # hops count
