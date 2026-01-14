@@ -11,13 +11,13 @@ def singleTyping(text, delay=0.1):
         time.sleep(delay)
 
 # Intro screen
-singleTyping("--------------------\n")
+singleTyping("--------------------\n", delay=0.02)
 singleTyping("Bunny Hop Gone Wrong\n")
-singleTyping("--------------------\n")
+singleTyping("--------------------\n", delay=0.02)
 singleTyping("(\_/)\n")
 singleTyping("( -_-)\n\n")
 singleTyping("1. Play The Game\n")
-singleTyping("2. About Me\n")
+singleTyping("2. Credits\n")
 choice = input("Select an option (1 or 2)\n> ")
 
 
@@ -49,7 +49,7 @@ if choice == '1':
     speed_cost = 20
 
     # hop generation variables  
-    hop_interval = 3.5
+    hop_interval = 3.0
     running = True
 
     # Threaded function for hop generation (goes on forever until the program is exited)
@@ -74,7 +74,7 @@ if choice == '1':
             print("Bug's Hop Shop")
             print("----------------")
             print(f"1) Multiplier Upgrade - Level {multiplier_level} - Cost: {multiplier_cost} hops")
-            print("   +0.1 multiplier each purchase")
+            print("   +0.5 multiplier each purchase")
             print(f"2) Speed Upgrade - Level {speed_level} - Cost: {speed_cost} hops")
             print("   -0.1s interval each purchase (min 1s)")
             print("\nType 1, 2, or quit (make sure to press Enter after):")
@@ -91,15 +91,15 @@ if choice == '1':
         if command == "1":
             if hops >= multiplier_cost:
                 hops -= multiplier_cost
-                multiplier_level += 1
-                multiplier += 0.1
+                multiplier_level += 1 # adds another level to the current level
+                multiplier += 0.5 # adds to the current multiplier
                 multiplier_cost = int(multiplier_cost * 1.5)
 
         elif command == "2":
             if hops >= speed_cost and hop_interval > 1:
                 hops -= speed_cost
-                speed_level += 1
-                hop_interval = max(1, hop_interval - 0.1)
+                speed_level += 1 # adds a level to the current speed level
+                hop_interval = max(1, hop_interval - 0.1) # makes sure the user doesn't go past 1 second
                 speed_cost = int(speed_cost * 1.5)
 
         # Exit command
@@ -107,3 +107,12 @@ if choice == '1':
             running = False
             print("Goodbye!")
             break
+# Option 2 (About Me section)
+elif choice == '2': 
+    os.system('clear||cls')
+    singleTyping("Credits", delay=0.1)
+    singleTyping("\n---------", delay=0.05)
+    singleTyping("\nDeveloper - Brian Le", delay=0.05)
+    singleTyping("\nInspiration - A Friend", delay=0.05)
+    singleTyping("\nResources - Stack Overflow ", delay=0.05)
+    singleTyping("\n~1/11/26", delay=0.05)
