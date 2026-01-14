@@ -1,19 +1,19 @@
 import os
+import threading # necessary for concurrent hopping and UI updates
 import time
 
 os.system('cls||clear')
 
-# a simple typing effect
+# Function to simulate typing effect
 def singleTyping(text, delay=0.1):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)
-        
-        
-# introduction / main menu
-singleTyping("-------\n")
-singleTyping("Hop Hop\n")
-singleTyping("-------\n")
+
+# Intro screen
+singleTyping("--------------------\n")
+singleTyping("Bunny Hop Gone Wrong\n")
+singleTyping("--------------------\n")
 singleTyping("(\_/)\n")
 singleTyping("( -_-)\n\n")
 singleTyping("1. Play The Game\n")
@@ -21,54 +21,89 @@ singleTyping("2. About Me\n")
 choice = input("Select an option (1 or 2)\n> ")
 
 
-# first choice (main game)
+# Option 1 for the Menu
 if choice == '1':
     os.system('cls||clear')
-    singleTyping("Waking up the rabbit...", delay=0.15)
+    singleTyping("Waking up The Bunny...", delay=0.15)
     time.sleep(2)
     os.system('cls||clear')
 
-    # rabbit display
     print("----------------")
-    print("Clove The Rabbit")
+    print("Honey The Bunny")
+    print("----------------")
     print("(\_/)")
     print("( •_•)")
-    print("----------------")
     singleTyping("\nI am ready to hop!", delay=0.1)
     time.sleep(1.5)
 
-    # game based stats and variables
-    hops = 0
-    
+    # The main points system (keeps track of hops)
+    hops = 0.0
+
+    # multiplier upgrade variables
     multiplier = 1.0
-    upgrade_level = 0
-    upgrade_cost = 10
-    
-    last_time = time.time()
+    multiplier_level = 0
+    multiplier_cost = 10
 
-    # main game loop
-    while True:
-        current_time = time.time()
-        if current_time - last_time >= 3.5:
-            hops += 1 * multiplier
-            last_time += 3.5
+    # speed upgrade variables
+    speed_level = 0
+    speed_cost = 20
 
-        os.system('cls||clear')
-        print("----------------")
-        print("Clove The Rabbit")
-        print("(\_/)")
-        print("( •_•)")
-        print("----------------")
-        print("Hops: " + str(int(hops)))
-        print("Multiplier: x" + str(round(multiplier, 1)))
-        
-        # add an upgrade system if enough hops
-        print("----------------")
-        print("\nBug's Hop Shop")
-        print("----------------")
-        print("Hop Multiplier Upgrade")
-        print("Level: " + str(upgrade_level))
-        print("Cost: " + str(upgrade_cost) + " hops")
-        print("\n(Upgrades are automatic so just watch hops increase!)")
+    # hop generation variables  
+    hop_interval = 3.5
+    running = True
 
-        time.sleep(0.1) # tiny delay so the loop isn't crazy fast.
+    # Threaded function for hop generation (goes on forever until the program is exited)
+    def hop_gen():
+        global hops
+        while running:
+            time.sleep(hop_interval)
+            hops += multiplier
+    # Threaded function for UI generation (goes on forever until the program is exited)
+    def ui_gen():
+        while running:
+            os.system('cls||clear')
+            print("----------------")
+            print("Honey The Bunny")
+            print("----------------")
+            print("(\_/)")
+            print("( •_•)\n")
+            print(f"Hops: {int(hops)}")
+            print(f"Multiplier: x{round(multiplier, 1)}")
+            print(f"Hop Interval: {round(hop_interval, 1)}s\n")
+            print("----------------")
+            print("Bug's Hop Shop")
+            print("----------------")
+            print(f"1) Multiplier Upgrade - Level {multiplier_level} - Cost: {multiplier_cost} hops")
+            print("   +0.1 multiplier each purchase")
+            print(f"2) Speed Upgrade - Level {speed_level} - Cost: {speed_cost} hops")
+            print("   -0.1s interval each purchase (min 1s)")
+            print("\nType 1, 2, or quit (make sure to press Enter after):")
+            time.sleep(hop_interval)
+
+    # auto generates hops and updates (cooldown is whatever the hop interval is)
+    threading.Thread(target=hop_gen, daemon=True).start()
+    threading.Thread(target=ui_gen, daemon=True).start()
+
+    # outputs for the shop and levels / cost of upgrades
+    while running:
+        command = input("> ").lower()
+
+        if command == "1":
+            if hops >= multiplier_cost:
+                hops -= multiplier_cost
+                multiplier_level += 1
+                multiplier += 0.1
+                multiplier_cost = int(multiplier_cost * 1.5)
+
+        elif command == "2":
+            if hops >= speed_cost and hop_interval > 1:
+                hops -= speed_cost
+                speed_level += 1
+                hop_interval = max(1, hop_interval - 0.1)
+                speed_cost = int(speed_cost * 1.5)
+
+        # Exit command
+        elif command == "quit":
+            running = False
+            print("Goodbye!")
+            break
