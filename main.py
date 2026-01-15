@@ -52,12 +52,13 @@ if choice == '1':
     hop_interval = 3.0
     running = True
 
-    # Threaded function for hop generation (goes on forever until the program is exited)
+    # Function for hop generation 
     def hop_gen():
-        global hops
+        global hops # makes sure to use the hops that every other block is using.
         while running:
             time.sleep(hop_interval)
-            hops += multiplier
+            hops += multiplier # hops is the total points / multiplier is what gives the points
+
     # Threaded function for UI generation (goes on forever until the program is exited)
     def ui_gen():
         while running:
@@ -80,7 +81,7 @@ if choice == '1':
             print("\nType 1, 2, or quit (make sure to press Enter after):")
             time.sleep(hop_interval)
 
-    # auto generates hops and updates (cooldown is whatever the hop interval is)
+    # auto generates the hops display and UI
     threading.Thread(target=hop_gen, daemon=True).start()
     threading.Thread(target=ui_gen, daemon=True).start()
 
@@ -107,12 +108,13 @@ if choice == '1':
             running = False
             print("Goodbye!")
             break
+        else:
+            print("False input!")
 # Option 2 (About Me section)
 elif choice == '2': 
     os.system('clear||cls')
     singleTyping("Credits", delay=0.1)
     singleTyping("\n---------", delay=0.05)
     singleTyping("\nDeveloper - Brian Le", delay=0.05)
-    singleTyping("\nInspiration - A Friend", delay=0.05)
     singleTyping("\nResources - Stack Overflow ", delay=0.05)
     singleTyping("\n~1/11/26", delay=0.05)
