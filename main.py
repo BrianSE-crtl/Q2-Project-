@@ -10,6 +10,7 @@ def singleTyping(text, delay=0.1):
         print(char, end='', flush=True)
         time.sleep(delay)
 
+
 # Intro screen
 singleTyping("--------------------\n", delay=0.02)
 singleTyping("Bunny Hop Gone Wrong\n")
@@ -49,7 +50,7 @@ if choice == '1':
     speed_cost = 20
 
     # hop generation variables  
-    hop_interval = 3.0
+    hop_interval = 1.5
     running = True
 
     # Function for hop generation 
